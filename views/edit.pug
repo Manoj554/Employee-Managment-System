@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    title #{title}
+   
+   
+  body
+    div.container
+        h1= " Edit Employee Details"
+        form(action="/update/" method="POST")
+          input(type="hidden" name="id" value=`${records._id}`)
+          p Name:
+            input(type="text" name="uname" value=`${records.name}` placeholder="Enter name")
+          p Email:
+            input(type="email" name="email" value=`${records.email}` placeholder="Enter email")
+          p Employee Type: 
+             select(name="emptype")
+                option(value="hourly") Hourly
+                option(value="fixed") Fixed
+          p Hourly Rate:
+            input(type="number" name="hrlyrate" value=`${records.hourlyrate}` placeholder="Enter rate hour")
+          p Total Hour:
+            input(type="number" name="ttrh" value=`${records.total}` placeholder="Enter total hour")
+          input(type="submit")
+    footer
+      p © #{new Date().getFullYear()} My Company

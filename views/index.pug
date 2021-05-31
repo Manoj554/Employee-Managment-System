@@ -1,0 +1,86 @@
+doctype html
+html(lang='en')
+  head
+    title #{title}
+    link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css')
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+
+    style.
+      table.ui.celled img { display: inline-block; }
+      footer { margin: 35px 0 15px 0; text-align: center }
+  body
+    
+    div.container
+      if(success!='')
+        div.alert.alert-success
+          strong Success! #{success}
+      h1 Search Here
+      form(action='/search/' method='post')
+        div
+          p Search By Name:- 
+             input(type="text" name="fltrname" placeholder='Search Name')
+        div
+          p Search By Email:- 
+             input(type="text" name="fltremail" placeholder='Search Email')
+        div
+          select(name="fltremptype")
+             option(value="hourly") Hourly
+             option(value="fixed") Fixed
+        input(type="submit")
+  
+    
+    main#main
+    h1.ui.center.aligned.header Employee Record 
+    .ui.container
+      table.ui.celled.table.center.aligned
+        thead
+          tr
+            th Name
+            th Email
+            th Etype
+            th Hourlyrate
+            th TotalHour
+            th Total
+            //- th ID
+            th Action
+        tbody
+          if(records.length>0)
+           each employee in records
+             tr
+              td #{employee.name}
+              td #{employee.email}
+              td #{employee.etype}
+              td #{employee.hourlyrate}
+              td #{employee.totalhour}
+              td #{employee.total}
+              //- td #{employee._id}
+              td
+                 a.btn.btn-info.btn-sm(href=`/edit/${employee._id}`)
+                    i.glyphicon.glyphicon-edit
+                 a.btn.btn-danger.btn-sm(href=`/delete/${employee._id}`)
+                    i.glyphicon.glyphicon-trash
+          else
+             td(colspan='7') No Record Found
+        tfoot
+          tr
+            th(colspan='7')
+
+    div.container
+        h1= "Employee Details"
+        form(action="/" method="POST")
+          p Name:
+            input(type="text" name="uname" placeholder="Enter name")
+          p Email:
+            input(type="email" name="email" placeholder="Enter email")
+          p Employee Type: 
+             select(name="emptype")
+                option(value="hourly") Hourly
+                option(value="fixed") Fixed
+          p Hourly Rate:
+            input(type="number" name="hrlyrate" placeholder="Enter rate hour")
+          p Total Hour:
+            input(type="number" name="ttrh" placeholder="Enter total hour")
+          input(type="submit")
+    footer
+      p © #{new Date().getFullYear()} My Company
